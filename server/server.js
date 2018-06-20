@@ -24,10 +24,11 @@ io.on('connection',function(socket){
 	//socket.broadcast.io from admin text new user joined
 		socket.broadcast.emit('newMessage',generateMessage('admin','New User joined the chat'));
     //New Message listner from index.js
-	socket.on('createMessage',function(newMsg) {
+	socket.on('createMessage',function(newMsg,callback) {
 		console.log("created Message",newMsg);
 		//emmit to a single user
 		io.emit('newMessage',generateMessage(newMsg.from,newMsg.text));
+		callback()
 	});
 
 	socket.on('createGeolocationMessage',function(coords){
