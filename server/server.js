@@ -7,7 +7,7 @@ const express= require('express');
 const publicPath = path.join(__dirname,'../public');
 
 const port = process.env.PORT || 3000;
-const {generateMessage}= require('./utils/message');
+const {generateMessage,generateLocationMessage}= require('./utils/message');
 
 var app= express();
 var server= http.createServer(app);
@@ -30,13 +30,20 @@ io.on('connection',function(socket){
 		io.emit('newMessage',generateMessage(newMsg.from,newMsg.text));
 	});
 
+	socket.on('createGeolocationMessage',function(coords){
+
+		io.emit('newLocationMessage',generateLocationMessage('Admin',coords.latitude,coords.longitude));
+
+	});
+
 	socket.on('disconnect',function(){
 		console.log('client disconnected');
 	});
 });
 server.listen(port,function(){
 	console.log(`Server is up on ports ${port}`);
-});	
+});
+
 
 
 
