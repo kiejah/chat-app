@@ -88,6 +88,8 @@ sendLocation.on('click',function(){
 	if(!navigator.geolocation){
 		return alert('Geolocation not supported by your browser');
 	}
+	console.log(navigator.geolocation.getCurrentPosition);
+	
 	sendLocation.attr('disabled','disabled').text('Sending Location... ');
 	navigator.geolocation.getCurrentPosition(
 		function(position){
