@@ -2,34 +2,29 @@
 <html>
 <head>
 	<meta charset="UTF-8">
+	<title>Join | ChatApp</title>
+	<meta name="viewPort" content="width=device-width, initial-scale=1, user-scalable=no">
 	<link rel="stylesheet" href="/css/styles.css">
 </head>
-<body class="chat">
-<div class="chat__sidebar">
-	<h3>People</h3>
-	<div id="users"></div>
-</div> 
-
-<div class="chat__main">
-
-	<ol id="messages" class="chat__messages "></ol>
-	<div class="chat__footer">
-		<form id="message-form">
-		<input name="message" type="text" placeholder="Message" autofocus autocomplete="off"/>
-		<button>Send</button>
+<body class= "centered-form">
+	<div class="centered-form__form">
+		<form action="/chat.html">
+			<div class="form-field">
+				<h3>Join a Chat </h3>
+			</div>
+			<div class="form-field">
+				<label>Your Display Name</label>
+				<input name="d_name" type="text" autofocus/>
+			</div>
+			<div class="form-field">
+				<label>Room Name</label>
+				<input name="room" type="text" />
+			</div>
+			<div class="form-field">
+				<button>Join</button>
+			</div>
 		</form>
-		<button id ="send-location">Send Location</button>
-
 	</div>
-	
-
-</div>
-
-
-
 </body>
-<script type="text/javascript" src="/socket.io/socket.io.js"></script>
-<script type="text/javascript" src="/js/libs/jquery.min.js"></script>
-<script type="text/javascript" src="/js/libs/moment.js"></script>
-<script type="text/javascript" src="/js/index.js"></script>
+
 </html>
