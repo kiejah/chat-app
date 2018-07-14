@@ -7,7 +7,7 @@ const express= require('express');
 const publicPath = path.join(__dirname,'../public');
 
 const port = process.env.PORT || 3000;
-const {generateMessage,generateLocationMessage}= require('./utils/message');
+const {generateMessage,generateLocationMessage,validateUserName}= require('./utils/message');
 const {isRealString}= require('./utils/validation');
 const {Users}= require('./utils/users');
 
@@ -23,7 +23,14 @@ io.on('connection',function(socket){
 	console.log('New User connected');
 
 		socket.on('join',(params,callback)=>{
+			
+			
 			//validation
+			var username_exists = users.getUserName(params.d_name);
+			if(username_exists){
+				return callback('opps! ' + username_exists.d_name + ' already Exists :x \n try a different Display Name');
+			}
+			
 			if (!isRealString(params.d_name) || !isRealString(params.room)) {
 				return callback('Display name and Chat room are required ');
 			} 
@@ -37,7 +44,7 @@ io.on('connection',function(socket){
 
 			callback();
 
-		})
+		});
 
 	
     //New Message listner from index.js
@@ -49,7 +56,20 @@ io.on('connection',function(socket){
 		if (user && isRealString(newMsg.text)) {
 			io.to(user.room).emit('newMessage',generateMessage(user.d_name,newMsg.text));
 		}
-		callback()
+		callback();
+	});
+	//New Message listner from index.js
+	socket.on('checkUser',function(newUsername,callback) {
+		//console.log("created Message",newMsg);
+		//emmit to a single user
+		var username_exists = users.getUserName(newUsername.user_name);
+
+		if (username_exists) {
+			socket.emit('userExists',validateUserName(username_exists.d_name,"Exists"));
+		}else{
+			socket.emit('userExists',validateUserName(username_exists.d_name,"Valid"));
+		}
+		callback();
 	});
 
 	socket.on('createGeolocationMessage',function(coords){

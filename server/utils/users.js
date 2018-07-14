@@ -21,6 +21,14 @@ class Users{
 		return user;
 
 	}
+	getUserName(dname){
+		var user= this.users.filter(function(_user) {
+			return _user.d_name=== dname;
+		});
+
+		return user[0];
+
+	}
 	getUser(id){
 		var user= this.users.filter(function(_user) {
 			return _user.id=== id;

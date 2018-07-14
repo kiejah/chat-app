@@ -6,9 +6,10 @@
 	<meta name="viewPort" content="width=device-width, initial-scale=1, user-scalable=no">
 	<link rel="stylesheet" href="/css/styles.css">
 </head>
+
 <body class= "centered-form">
 	<div class="centered-form__form">
-		<form action="/chat.html">
+		<form id="join-form" action="/chat.html">
 			<div class="form-field">
 				<h3>Join a Chat </h3>
 			</div>
@@ -18,13 +19,15 @@
 			</div>
 			<div class="form-field">
 				<label>Room Name</label>
-				<input name="room" type="text" />
+				<select name="room">
+					<option value="general">General</option>
+					<option value="casual">Casual</option>
+				</select>
 			</div>
 			<div class="form-field">
-				<button>Join</button>
+				<button id="join">Join</button>
 			</div>
 		</form>
 	</div>
 </body>
-
 </html>

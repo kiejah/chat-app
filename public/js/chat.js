@@ -1,9 +1,10 @@
 var socket= io();
+var status;
 
-function scrollToBottom (argument) {
+function scrollToBottom(argument) {
 	//selectors
 	var messages= jQuery('#messages');
-	var newMessage= messages.children('li:last-child')
+	var newMessage= messages.children('li:last-child');
 	//heights
 	var clientHeight= messages.prop('clientHeight');
 	var scrollTop= messages.prop('scrollTop');
@@ -17,6 +18,7 @@ function scrollToBottom (argument) {
 }
 
 
+
 socket.on('connect',function(){
 	//console.log('connected to the server');
 	var params= jQuery.deparam(window.location.search);
@@ -28,7 +30,7 @@ socket.on('connect',function(){
 			console.log("no error");
 
 		}
-	})
+	});
 
 });
 socket.on('disconnect',function(){
@@ -58,6 +60,15 @@ socket.on('newMessage',function(msg) {
 	scrollToBottom();
 	
 });
+socket.on('userExists',function(msg) {
+	
+	if(msg.status==="Exists"){
+		status="user_exists";
+	}else{
+		status="username_valid";
+	}
+	
+});
 socket.on('newLocationMessage',function(msg) {
 	var formatedTime= moment(msg.createdAt).format('h:mm a');
 	var template= jQuery('#location-message-template').html();
@@ -71,6 +82,7 @@ socket.on('newLocationMessage',function(msg) {
 	scrollToBottom();
 
 });
+
 
 jQuery('#message-form').on('submit',function(e){
 	e.preventDefault();

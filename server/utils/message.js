@@ -6,6 +6,12 @@ var generateMessage= (from,text)=>{
 		createdAt:moment().valueOf()
 	};
 };
+var validateUserName= (username,status)=>{
+	return {
+		username,
+		status
+	};
+};
 var generateLocationMessage= (from,latitute,longitude)=>{
 	return {
 		from,
@@ -13,4 +19,4 @@ var generateLocationMessage= (from,latitute,longitude)=>{
 		createdAt:moment().valueOf()
 	};
 };
-module.exports= {generateMessage,generateLocationMessage};
+module.exports= {generateMessage,generateLocationMessage,validateUserName};
